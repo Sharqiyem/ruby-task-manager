@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: sharqi
+  password: # Leave blank if no password
+  pool: 5
+
+# Define environment-specific configurations
+development:
+  <<: *default
+  database: task_manager_development
+
+test:
+  <<: *default
+  database: task_manager_test
+
+production:
+  <<: *default
+  database: task_manager
+  # Add production-specific settings (e.g., host, port)
