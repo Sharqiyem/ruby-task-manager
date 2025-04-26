@@ -1,7 +1,12 @@
-# Pin npm packages by running ./bin/importmap
+pin "application", preload: true
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
+pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable.esm.js"
 
-pin "application"
-pin "@hotwired/turbo-rails", to: "turbo.min.js"
-pin "@hotwired/stimulus", to: "stimulus.min.js"
-pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
+# Pin all controllers
+pin "controllers/application", to: "controllers/application.js"
+pin "controllers/sortable_controller", to: "controllers/sortable_controller.js"
+
+pin "controllers", to: "controllers/index.js"
 pin_all_from "app/javascript/controllers", under: "controllers"

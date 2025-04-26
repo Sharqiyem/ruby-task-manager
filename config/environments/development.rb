@@ -1,6 +1,13 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Configure 'rails notes' to inspect Cucumber files
+  config.annotations.register_directories('features')
+  config.annotations.register_extensions('feature') { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
+
+  config.stimulus_debug = true
+  config.assets.debug = false
+  config.assets.compile = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
@@ -8,6 +15,8 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+
+  config.log_level = :debug
 
   # Show full error reports.
   config.consider_all_requests_local = true

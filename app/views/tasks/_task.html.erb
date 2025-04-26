@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= task.title %></h5>
+    
+    <p class="card-text">
+      <strong>Description:</strong>
+      <%= task.description %>
+    </p>
+    
+    <div class="task-meta">
+      <% if task.status.present? %>
+        <span class="badge bg-<%= task_status_badge(task.status) %>">
+          <%= task.status.humanize %>
+        </span>
+      <% end %>
+      
+      <% if task.priority.present? %>
+        <span class="badge bg-<%= task_priority_badge(task.priority) %>">
+          <%= task.priority.humanize %>
+        </span>
+      <% end %>
+      
+      <% if task.assignee_id.present? %>
+        <span class="assignee">
+          Assigned to: <%= task.assignee&.email || 'Unassigned' %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>

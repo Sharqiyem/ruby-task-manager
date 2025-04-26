@@ -1,0 +1,1 @@
+World(Devise::Test::IntegrationHelpers)

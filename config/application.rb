@@ -23,5 +23,7 @@ module TaskManagerSaas
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.asset_pipeline = :propshaft
+    config.javascript_path = "app/javascript"
   end
 end

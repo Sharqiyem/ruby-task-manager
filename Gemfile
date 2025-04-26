@@ -56,8 +56,17 @@ group :development do
   gem "web-console"
 end
 
+
+gem "devise", "~> 4.9"
+
+
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'rspec-rails'
+  gem 'cucumber-rails', require: false
+  gem 'capybara'
+  gem 'selenium-webdriver' # For JavaScript tests
+  gem 'webdrivers'        # For Chrome driver
+  gem 'database_cleaner-active_record' # Optional but recommended
 end
+
+gem 'cancancan'
