@@ -34,19 +34,16 @@ ActionController::Base.allow_rescue = false
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
-Before do
-  DatabaseCleaner.start
-end
-
-After do |scenario|
-  DatabaseCleaner.clean
-end
+ 
  
 begin
   DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner.start
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+end
+
+Before do
+  DatabaseCleaner.start
 end
 
 After do |scenario|
@@ -72,3 +69,9 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+ENV["RAILS_ENV"] ||= "test"
+# require_relative "../config/environment"
+require 'cucumber/rails'
+require 'factory_bot_rails'
+   puts defined?(FactoryBot) # Should output "constant" if FactoryBot is defined

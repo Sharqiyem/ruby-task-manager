@@ -13,13 +13,28 @@ Rails.application.configure do
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
+  # Enable debug mode for import maps
+  config.importmap.cache_sweeper = nil
+  
+  # Enable debug mode for JavaScript modules
+  config.assets.debug = true
+  
+
   # Do not eager load code on boot.
   config.eager_load = false
 
   config.log_level = :debug
 
   # Show full error reports.
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
+
+  config.action_controller.perform_caching = true
+  config.cache_store = :memory_store
+
+  # Disable caching
+  config.cache_classes = false
+  # config.action_controller.perform_caching = false
+  # config.cache_store = :null_store
 
   # Enable server timing.
   config.server_timing = true
@@ -27,7 +42,7 @@ Rails.application.configure do
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
-    config.action_controller.perform_caching = true
+    # config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
     config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
   else
@@ -35,7 +50,7 @@ Rails.application.configure do
   end
 
   # Change to :null_store to avoid any caching.
-  config.cache_store = :memory_store
+  # config.cache_store = :memory_store
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

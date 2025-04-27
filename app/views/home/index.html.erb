@@ -1,8 +1,121 @@
-<div class="jumbotron">
-  <h1 class="display-4">Welcome to Task Manager</h1>
-  <p class="lead">Organize your tasks efficiently</p>
-  <hr class="my-4">
-  <% unless user_signed_in? %>
-    <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary btn-lg" %>
-  <% end %>
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-4">
+            Manage Tasks Effortlessly
+          </h1>
+          <p class="lead mb-4">
+            Streamline your workflow, collaborate with team members, and boost productivity with our intuitive task management platform.
+          </p>
+          <div class="cta-buttons">
+            <% if user_signed_in? %>
+              <%= link_to dashboard_path, class: "btn btn-light btn-lg me-3" do %>
+                <i class="fas fa-columns"></i> Go to Dashboard
+              <% end %>
+            <% else %>
+              <%= link_to new_user_registration_path, class: "btn btn-light btn-lg me-3" do %>
+                <i class="fas fa-user-plus"></i> Get Started Free
+              <% end %>
+              <%= link_to new_user_session_path, class: "btn btn-outline-light btn-lg" do %>
+                <i class="fas fa-sign-in-alt"></i> Sign In
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="hero-illustration">
+            <i class="fas fa-tasks-alt fa-10x mb-4"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section with Icons -->
+  <section class="features py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Why Choose Our Task Manager?</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card text-center p-4 h-100">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-check-circle fa-3x text-primary"></i>
+            </div>
+            <h3>Easy Task Management</h3>
+            <p class="text-muted">Create, organize, and track tasks with our intuitive interface.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card text-center p-4 h-100">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-users fa-3x text-primary"></i>
+            </div>
+            <h3>Team Collaboration</h3>
+            <p class="text-muted">Work together efficiently with team members on shared tasks.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card text-center p-4 h-100">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-chart-line fa-3x text-primary"></i>
+            </div>
+            <h3>Progress Tracking</h3>
+            <p class="text-muted">Monitor progress and achievements with detailed analytics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="stats bg-light py-5">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="stat-card p-4">
+            <i class="fas fa-users fa-3x text-primary mb-3"></i>
+            <h2 class="counter">10,000+</h2>
+            <p class="text-muted">Happy Users</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="stat-card p-4">
+            <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+            <h2 class="counter">50,000+</h2>
+            <p class="text-muted">Tasks Completed</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card p-4">
+            <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+            <h2 class="counter">1,000+</h2>
+            <p class="text-muted">Hours Saved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta bg-primary text-white py-5">
+    <div class="container text-center">
+      <h2 class="mb-4">Ready to Get Started?</h2>
+      <p class="lead mb-4">Join thousands of users who are already managing their tasks effectively.</p>
+      <% if user_signed_in? %>
+        <%= link_to dashboard_path, class: "btn btn-light btn-lg" do %>
+          <i class="fas fa-columns"></i> Go to Dashboard
+        <% end %>
+      <% else %>
+        <%= link_to new_user_registration_path, class: "btn btn-light btn-lg" do %>
+          <i class="fas fa-user-plus"></i> Sign Up Now - It's Free!
+        <% end %>
+      <% end %>
+    </div>
+  </section>
 </div>

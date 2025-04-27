@@ -10,26 +10,31 @@ export default class extends Controller {
     }
 
     initializeSortable() {
-        console.log("Initializing Sortable...")
+        console.log("Initializing sortable columns:", this.columnTargets.length)
+
         this.columnTargets.forEach(column => {
             new Sortable(column, {
-                group: 'tasks',
+                group: 'shared',
                 animation: 150,
-                dragClass: 'drag-item',
-                ghostClass: 'drag-ghost',
-                onStart: (evt) => {
-                    console.log('Drag started:', evt)
-                },
-                onEnd: this.updateStatus.bind(this)
+                ghostClass: 'sortable-ghost',
+                onEnd: (event) => this.handleDragEnd(event)
             })
         })
     }
 
-    updateStatus(event) {
-        console.log('Drag ended:', event)
+    handleDragEnd(event) {
         const taskId = event.item.dataset.taskId
         const newStatus = event.to.dataset.status
-        console.log('Updating task:', { taskId, newStatus })
+
+        console.log("Drag ended:", { taskId, newStatus })
+
+        if (taskId && newStatus) {
+            this.updateTaskStatus(taskId, newStatus, event.item)
+        }
+    }
+
+    updateTaskStatus(taskId, newStatus, element) {
+        element.style.opacity = '0.5'
 
         fetch(`/tasks/${taskId}/update_status`, {
             method: 'PATCH',
@@ -40,7 +45,13 @@ export default class extends Controller {
             body: JSON.stringify({ status: newStatus })
         })
             .then(response => response.json())
-            .then(data => console.log('Update successful:', data))
-            .catch(error => console.error('Error updating task:', error))
+            .then(data => {
+                console.log("Status updated:", data)
+                element.style.opacity = '1'
+            })
+            .catch(error => {
+                console.error("Error updating status:", error)
+                element.style.opacity = '1'
+            })
     }
 }

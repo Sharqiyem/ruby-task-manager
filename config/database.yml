@@ -16,5 +16,6 @@ test:
 
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: task_manager
   # Add production-specific settings (e.g., host, port)

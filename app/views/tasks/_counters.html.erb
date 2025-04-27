@@ -1,0 +1,14 @@
+<div id="task_counters">
+  <div class="row">
+    <% Task.statuses.keys.each do |status| %>
+      <div class="col-md-4">
+        <div class="counter-badge">
+          <span class="badge bg-<%= status_badge_class(status) %>">
+            <%= counts[status] || 0 %>
+          </span>
+          <%= status.humanize %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

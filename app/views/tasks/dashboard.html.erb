@@ -1,0 +1,203 @@
+<div class="dashboard">
+  <!-- Welcome Section -->
+  <div class="welcome-section mb-4">
+    <h1 class="display-6">Welcome back, <%= current_user.email %></h1>
+    <p class="text-muted">Here's an overview of your tasks</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 mb-4">
+    <!-- Total Tasks -->
+    <div class="col-md-3">
+      <div class="card stats-card bg-primary text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="card-subtitle mb-2">Total Tasks</h6>
+              <h2 class="card-title mb-0"><%= @total_tasks || 0 %></h2>
+            </div>
+            <div class="stats-icon">
+              <i class="fas fa-tasks fa-2x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Tasks -->
+    <div class="col-md-3">
+      <div class="card stats-card bg-success text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="card-subtitle mb-2">Completed</h6>
+              <h2 class="card-title mb-0"><%= @completed_tasks || 0 %></h2>
+            </div>
+            <div class="stats-icon">
+              <i class="fas fa-check-circle fa-2x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- In Progress Tasks -->
+    <div class="col-md-3">
+      <div class="card stats-card bg-warning text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="card-subtitle mb-2">In Progress</h6>
+              <h2 class="card-title mb-0"><%= @status_counts['in_progress'] || 0 %></h2>
+            </div>
+            <div class="stats-icon">
+              <i class="fas fa-spinner fa-2x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completion Rate -->
+    <div class="col-md-3">
+      <div class="card stats-card bg-info text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="card-subtitle mb-2">Completion Rate</h6>
+              <h2 class="card-title mb-0"><%= number_to_percentage(@completion_rate, precision: 1) %></h2>
+            </div>
+            <div class="stats-icon">
+              <i class="fas fa-chart-line fa-2x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Distribution -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Tasks by Status</h5>
+        </div>
+        <div class="card-body">
+          <% @status_counts.each do |status, count| %>
+            <div class="status-item mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span><%= status.humanize %></span>
+                <span class="badge bg-<%= status_badge_class(status) %>">
+                  <%= count %>
+                </span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-<%= status_badge_class(status) %>"
+                     role="progressbar"
+                     style="width: <%= (@total_tasks > 0 ? (count.to_f / @total_tasks * 100) : 0) %>%"
+                     aria-valuenow="<%= count %>"
+                     aria-valuemin="0"
+                     aria-valuemax="<%= @total_tasks %>">
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Tasks by Priority</h5>
+        </div>
+        <div class="card-body">
+          <% @priority_counts.each do |priority, count| %>
+            <div class="priority-item mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span><%= priority.humanize %></span>
+                <span class="badge bg-<%= priority_badge_class(priority) %>">
+                  <%= count %>
+                </span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-<%= priority_badge_class(priority) %>"
+                     role="progressbar"
+                     style="width: <%= (@total_tasks > 0 ? (count.to_f / @total_tasks * 100) : 0) %>%"
+                     aria-valuenow="<%= count %>"
+                     aria-valuemin="0"
+                     aria-valuemax="<%= @total_tasks %>">
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Tasks -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">Recent Tasks</h5>
+          <%= link_to new_task_path, class: "btn btn-primary btn-sm" do %>
+            <i class="fas fa-plus"></i> New Task
+          <% end %>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% current_user.tasks.order(created_at: :desc).limit(5).each do |task| %>
+                  <tr>
+                    <td><%= link_to task.title, task_path(task), class: "text-decoration-none" %></td>
+                    <td>
+                      <span class="badge <%= status_badge_class(task.status) %>">
+                        <%= task.status.humanize %>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge <%= priority_badge_class(task.priority) %>">
+                        <%= task.priority.humanize %>
+                      </span>
+                    </td>
+                    <td><%= time_ago_in_words(task.created_at) %> ago</td>
+                    <td>
+                      <%= link_to edit_task_path(task), class: "btn btn-sm btn-outline-primary me-1" do %>
+                        <i class="fas fa-edit"></i>
+                      <% end %>
+                      <%= button_to task_path(task), 
+                          method: :delete, 
+                          class: "btn btn-sm btn-outline-danger",
+                          form: { class: "d-inline-block" },
+                          data: { turbo_confirm: "Are you sure?" } do %>
+                        <i class="fas fa-trash"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer text-end">
+          <%= link_to tasks_path, class: "btn btn-link" do %>
+            View All Tasks <i class="fas fa-arrow-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

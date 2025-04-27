@@ -5,8 +5,8 @@ Feature: User Authentication
 
   Scenario: Successful login
     Given I am on the login page
-    When I fill in "Email" with "test@example.com"
-    And I fill in "Password" with "password123"
+    When I fill in "Email" with "s@s.com"
+    And I fill in "Password" with "123456"
     And I click "Log in"
     Then I should see "Signed in successfully"
 

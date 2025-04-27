@@ -151,6 +151,11 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    factory_bot (6.5.1)
+      activesupport (>= 6.1.0)
+    factory_bot_rails (6.4.4)
+      factory_bot (~> 6.5)
+      railties (>= 5.0.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -450,12 +455,14 @@ DEPENDENCIES
   database_cleaner-active_record
   debug
   devise (~> 4.9)
+  factory_bot_rails
   importmap-rails
   jbuilder
   kamal
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
+  rackup (~> 2.2)
   rails (~> 8.0.2)
   rspec-rails
   rubocop-rails-omakase

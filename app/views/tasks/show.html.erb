@@ -8,17 +8,20 @@
         <i class="fas fa-edit"></i> Edit
       <% end %>
       <%= button_to task_path(@task), 
-          method: :delete, 
-          class: "btn btn-outline-danger",
-          form: { 
-            data: { 
-              turbo_confirm: "Are you sure you want to delete this task?",
-              controller: "confirmation"
-            },
-            class: "d-inline"
-          } do %>
-        <i class="fas fa-trash-alt"></i> Delete
-      <% end %>
+            method: :delete,
+            class: "btn btn-danger",
+             data: { turbo_confirm: "Are you sure you want to delete this task?" },
+
+            form: { 
+              data: { 
+                controller: "confirmation",
+                action: "submit->confirmation#beforeSubmit",
+                confirmation_message_value: "Are you sure you want to delete this task? This action cannot be undone."
+              },
+              class: "d-inline-block"
+            } do %>
+          <i class="fas fa-trash-alt"></i> Delete
+        <% end %>
     </div>
   </div>
   

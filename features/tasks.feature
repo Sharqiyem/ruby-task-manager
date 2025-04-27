@@ -8,10 +8,10 @@ Feature: Task Management
 
   Scenario: Create a new task
     When I visit the tasks page
-    And I click "New Task"
+    And I click the navbar new task link
     And I fill in "Title" with "Finish project"
     And I select "High" from priority
-    And I click "Create Task"
+    And I click first button with text "Create Task"
     Then I should see "Task was successfully created"
 
   Scenario: View my tasks

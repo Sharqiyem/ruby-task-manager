@@ -66,7 +66,12 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver' # For JavaScript tests
   gem 'webdrivers'        # For Chrome driver
-  gem 'database_cleaner-active_record' # Optional but recommended
+  gem 'database_cleaner-active_record' # Optional but recommended  
+end
+
+group :development, :test do
+  gem 'factory_bot_rails'
 end
 
 gem 'cancancan'
+gem "rackup", "~> 2.2"

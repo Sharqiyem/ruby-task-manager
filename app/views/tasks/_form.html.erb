@@ -19,17 +19,19 @@
     <%= form.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] }, {}, class: "form-select" %>
   </div>
 
-  <div class="actions mt-4">
-    <%= form.submit class: "btn btn-primary" %>
-    <%= link_to "Cancel", tasks_path, class: "btn btn-outline-secondary ms-2" %>
-  </div>
-
   <% if current_user.admin? %>
   <div class="mb-3">
     <%= form.label :assignee_id %>
     <%= form.collection_select :assignee_id, User.all, :id, :email, 
                               { include_blank: "Unassigned" }, 
                               class: "form-select" %>
+
+  <div class="actions mt-4">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", tasks_path, class: "btn btn-outline-secondary ms-2" %>
+  </div>
+
+  
   </div>
 <% end %>
 <% end %>

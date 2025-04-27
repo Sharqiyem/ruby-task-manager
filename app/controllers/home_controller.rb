@@ -1,9 +1,18 @@
-
 class HomeController < ApplicationController
-  before_action :authenticate_user!  # Blocks access unless logged in
+  skip_before_action :authenticate_user!
 
-  def dashboard
-    # Optional: Add instance variables for the view
-    @message = "Welcome, #{current_user.email}" 
+  def index
+    if user_signed_in?
+      redirect_to dashboard_path
+    end
+  end
+
+  def about
+  end
+
+  def contact
+  end
+
+  def pricing
   end
 end

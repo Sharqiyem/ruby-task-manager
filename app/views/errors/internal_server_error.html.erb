@@ -1,0 +1,22 @@
+<div class="error-page">
+  <div class="container text-center py-5">
+    <div class="error-content">
+      <h1 class="display-1">500</h1>
+      <div class="error-icon mb-4">
+        <i class="fas fa-bug fa-4x text-danger"></i>
+      </div>
+      <h2 class="mb-4">Internal Server Error</h2>
+      <p class="lead text-muted mb-5">
+        Oops! Something went wrong on our end.
+      </p>
+      <div class="error-actions">
+        <%= link_to root_path, class: "btn btn-primary btn-lg me-3" do %>
+          <i class="fas fa-home"></i> Go Home
+        <% end %>
+        <%= link_to "javascript:history.back()", class: "btn btn-outline-secondary btn-lg" do %>
+          <i class="fas fa-arrow-left"></i> Go Back
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
